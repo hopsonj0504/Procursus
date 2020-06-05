@@ -1,0 +1,32 @@
+# Main System Info
+language: c
+os: osx
+osx_image: xcode11.5
+
+# Git Setup
+git:
+  submodules: true
+  depth: 1
+
+# Main Build Stage
+  # Initial Setup
+before_install:
+- ssh-keyscan github.com >> ~/.ssh/known_hosts
+- DIR=$(pwd)
+- export NO_PGP=1
+- brew update
+- brew upgrade
+  # Homebrew Installs
+- brew install gnupg gnutls gnu-sed make cmake pkg-config findutils gnu-tar gpatch bash openssl@1.1 ldid libtool automake bison flex groff fakeroot dpkg zstd ncurses
+- brew unlink gnupg gnutls gnu-sed make cmake pkg-config findutils gnu-tar gpatch bash openssl@1.1 ldid libtool automake bison flex groff fakeroot dpkg zstd ncurses
+- brew link --force --overwrite gnupg gnutls gnu-sed make cmake pkg-config findutils gnu-tar gpatch bash openssl@1.1 ldid libtool automake bison flex groff fakeroot dpkg zstd ncurses
+  # Initial Build
+- gmake setup
+
+script: echo -n ""
+
+# Caching
+cache:
+  directories:
+    - $HOME/Library/Caches/Homebrew
+    - /usr/local/Homebrew
