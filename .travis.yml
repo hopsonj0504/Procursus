@@ -1,34 +1,29 @@
-# Main System Info
 language: c
 os: osx
 osx_image: xcode11.5
-
-# Git Setup
 git:
   submodules: true
   depth: 1
-
-# Main Build Stage
-  # Initial Setup
 before_install:
 - ssh-keyscan github.com >> ~/.ssh/known_hosts
 - DIR=$(pwd)
 - export NO_PGP=1
 - brew update
 - brew upgrade
-  # Homebrew Installs
-- brew install gnupg gnutls gnu-sed make cmake pkg-config findutils gnu-tar gpatch bash openssl@1.1 ldid libtool automake bison flex groff fakeroot dpkg zstd ncurses
-- brew unlink gnupg gnutls gnu-sed make cmake pkg-config findutils gnu-tar gpatch bash openssl@1.1 ldid libtool automake bison flex groff fakeroot dpkg zstd ncurses
-- brew link --force --overwrite gnupg gnutls gnu-sed make cmake pkg-config findutils gnu-tar gpatch bash openssl@1.1 ldid libtool automake bison flex groff fakeroot dpkg zstd ncurses
-  # Initial Build
+- brew install gnupg gnutls gnu-sed make cmake pkg-config findutils gnu-tar gpatch
+  bash openssl@1.1 ldid libtool automake bison flex groff fakeroot dpkg zstd ncurses
+- brew unlink gnupg gnutls gnu-sed make cmake pkg-config findutils gnu-tar gpatch
+  bash openssl@1.1 ldid libtool automake bison flex groff fakeroot dpkg zstd ncurses
+- brew link --force --overwrite gnupg gnutls gnu-sed make cmake pkg-config findutils
+  gnu-tar gpatch bash openssl@1.1 ldid libtool automake bison flex groff fakeroot
+  dpkg zstd ncurses
 - gmake setup
-  # OpenSSH
 - gmake openssh-package
-
 script: echo -n ""
-
-# Caching
 cache:
   directories:
-    - $HOME/Library/Caches/Homebrew
-    - /usr/local/Homebrew
+  - "$HOME/Library/Caches/Homebrew"
+  - "/usr/local/Homebrew"
+env:
+  global:
+    secure: mqxzuSC9CljmvXPUJc9vYnZm6QQP0wZrGduk/nujIiTVMI1trbwHMW+3QSBjBFw0/yGg2E7He1B9Xwpuw+Qpr2twRUUg3EUYNRcDS43PK2/d3o0LisYvOo5P2cIkQxj+2iY0pAG+ILK0Aykci/chjPLbx+YhTVnyApJdzIteyWbwCu7wby0vnho9cWzR0oCKT01imhRJsFBlEF5rC5Up/0ObDXnYJN+vjh+uyC6q80k/tkPFsyXEfQCpyDuxDLibkw9pFB83gNnurOEEJhMFfCqkbW5mgDwd5ZJqo9ezt/xnm7sFlUzc1HtTjM5BYbrOqj5guSYR9mCD73yWD7xKDl0Er0g9EQC0GhiYucwOlfLRXLT0n3605RjZUwlR8jJ0vqCw1KmGi+B11B21bJ6EbdCj2QR4v0AJ3kalWI/oGFQUIB1FyqpNYhUXahUmBwiG1rmBWY3aEvsAuMnQvURFSFNOWSftQyKPzj9VOVhK7+ynHLtHjKWVoN9h2/BFWUS9/5vIs6n1RMC6txNV5zKnwFzxb24alRePNGPnxlL9m7EV0G8S7aLL0K3zHaXsSsFKAETNNDzvUS1kklKp4j7tS0TsIAMkbaBcW6dnHR2En04FE8fOpkt2EOx+/ynTnJU9aC19tDS5fnJJiabE7uv5gS+Osj7p8fGp1H1p6u6PCrA=
