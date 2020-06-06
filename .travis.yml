@@ -9,7 +9,6 @@ git:
   depth: 1
 before_install:
 - ssh-keyscan github.com >> ~/.ssh/known_hosts
-- DIR=$(pwd)
 - export NO_PGP=1
 - brew update
 - brew upgrade
@@ -23,13 +22,16 @@ before_install:
 - gmake setup
 - gmake openssh-package
 - gmake ncurses-package
-- cd $DIR
+- cd $HOME
+- git config --global user.name $username
+- git config --global user.email $email
 - git clone https://github.com/ProcursusTeam/repo.git
-- if [ -d "Procursus/build_dist/appletvos-arm64/1300" ]; then find Procursus/build_dist/appletvos-arm64/1300 -type f -name "*.deb" -exec cp {} repo/pool/main/appletvos-arm64/1300/ \; ; fi
-- if [ -d "Procursus/build_dist/iphoneos-arm64/1600" ]; then find Procursus/build_dist/iphoneos-arm64/1600 -type f -name "*.deb" -exec cp {} repo/pool/main/iphoneos-arm64/1600/ \; ; fi
-- if [ -d "Procursus/build_dist/iphoneos-arm64/1500" ]; then find Procursus/build_dist/iphoneos-arm64/1500 -type f -name "*.deb" -exec cp {} repo/pool/main/iphoneos-arm64/1500/ \; ; fi
-- if [ -d "Procursus/build_dist/watchos-arm/1400" ]; then find Procursus/build_dist/watchos-arm/1400 -type f -name "*.deb" -exec cp {} repo/pool/main/watchos-arm/1400/ \; ; fi
-- if [ -d "Procursus/build_dist/watchos-arm64/1400" ]; then find Procursus/build_dist/watchos-arm64/1400 -type f -name "*.deb" -exec cp {} repo/pool/main/watchos-arm64/1400/ \; ; fi
+- find build/ProcursusTeam/Procursus/build_dist -type f -name "*.deb"
+- if [ -d "build/ProcursusTeam/Procursus/build_dist/appletvos-arm64/1300" ]; then find build/ProcursusTeam/Procursus/build_dist/appletvos-arm64/1300 -type f -name "*.deb" -exec cp {} repo/pool/main/appletvos-arm64/1300/ \; ; fi
+- if [ -d "build/ProcursusTeam/Procursus/build_dist/iphoneos-arm64/1600" ]; then find build/ProcursusTeam/Procursus/build_dist/iphoneos-arm64/1600 -type f -name "*.deb" -exec cp {} repo/pool/main/iphoneos-arm64/1600/ \; ; fi
+- if [ -d "build/ProcursusTeam/Procursus/build_dist/iphoneos-arm64/1500" ]; then find build/ProcursusTeam/Procursus/build_dist/iphoneos-arm64/1500 -type f -name "*.deb" -exec cp {} repo/pool/main/iphoneos-arm64/1500/ \; ; fi
+- if [ -d "build/ProcursusTeam/Procursus/build_dist/watchos-arm/1400" ]; then find build/ProcursusTeam/Procursus/build_dist/watchos-arm/1400 -type f -name "*.deb" -exec cp {} repo/pool/main/watchos-arm/1400/ \; ; fi
+- if [ -d "build/ProcursusTeam/Procursus/build_dist/watchos-arm64/1400" ]; then find build/ProcursusTeam/Procursus/build_dist/watchos-arm64/1400 -type f -name "*.deb" -exec cp {} repo/pool/main/watchos-arm64/1400/ \; ; fi
 - cd repo
 - git add -A
 - git commit -m "Travis-$(date +'%Y%m%d%H%M%S')"
