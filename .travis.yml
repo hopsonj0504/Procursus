@@ -1,6 +1,9 @@
 language: c
 os: osx
 osx_image: xcode11.5
+env:
+  global:
+    secure: mqxzuSC9CljmvXPUJc9vYnZm6QQP0wZrGduk/nujIiTVMI1trbwHMW+3QSBjBFw0/yGg2E7He1B9Xwpuw+Qpr2twRUUg3EUYNRcDS43PK2/d3o0LisYvOo5P2cIkQxj+2iY0pAG+ILK0Aykci/chjPLbx+YhTVnyApJdzIteyWbwCu7wby0vnho9cWzR0oCKT01imhRJsFBlEF5rC5Up/0ObDXnYJN+vjh+uyC6q80k/tkPFsyXEfQCpyDuxDLibkw9pFB83gNnurOEEJhMFfCqkbW5mgDwd5ZJqo9ezt/xnm7sFlUzc1HtTjM5BYbrOqj5guSYR9mCD73yWD7xKDl0Er0g9EQC0GhiYucwOlfLRXLT0n3605RjZUwlR8jJ0vqCw1KmGi+B11B21bJ6EbdCj2QR4v0AJ3kalWI/oGFQUIB1FyqpNYhUXahUmBwiG1rmBWY3aEvsAuMnQvURFSFNOWSftQyKPzj9VOVhK7+ynHLtHjKWVoN9h2/BFWUS9/5vIs6n1RMC6txNV5zKnwFzxb24alRePNGPnxlL9m7EV0G8S7aLL0K3zHaXsSsFKAETNNDzvUS1kklKp4j7tS0TsIAMkbaBcW6dnHR2En04FE8fOpkt2EOx+/ynTnJU9aC19tDS5fnJJiabE7uv5gS+Osj7p8fGp1H1p6u6PCrA=
 git:
   submodules: true
   depth: 1
@@ -19,11 +22,21 @@ before_install:
   dpkg zstd ncurses
 - gmake setup
 - gmake openssh-package
+- gmake ncurses-package
+- cd $DIR
+- git clone https://github.com/ProcursusTeam/repo.git
+- if [ -d "Procursus/build_dist/appletvos-arm64/1300" ]; then find Procursus/build_dist/appletvos-arm64/1300 -type f -name "*.deb" -exec cp {} repo/pool/main/appletvos-arm64/1300/ \; ; fi
+- if [ -d "Procursus/build_dist/iphoneos-arm64/1600" ]; then find Procursus/build_dist/iphoneos-arm64/1600 -type f -name "*.deb" -exec cp {} repo/pool/main/iphoneos-arm64/1600/ \; ; fi
+- if [ -d "Procursus/build_dist/iphoneos-arm64/1500" ]; then find Procursus/build_dist/iphoneos-arm64/1500 -type f -name "*.deb" -exec cp {} repo/pool/main/iphoneos-arm64/1500/ \; ; fi
+- if [ -d "Procursus/build_dist/watchos-arm/1400" ]; then find Procursus/build_dist/watchos-arm/1400 -type f -name "*.deb" -exec cp {} repo/pool/main/watchos-arm/1400/ \; ; fi
+- if [ -d "Procursus/build_dist/watchos-arm64/1400" ]; then find Procursus/build_dist/watchos-arm64/1400 -type f -name "*.deb" -exec cp {} repo/pool/main/watchos-arm64/1400/ \; ; fi
+- cd repo
+- git add -A
+- git commit -m "Travis-$(date +'%Y%m%d%H%M%S')"
+- git remote set-url origin https://${GH_TOKEN}@github.com/ProcursusTeam/repo.git
+- git push origin master
 script: echo -n ""
 cache:
   directories:
   - "$HOME/Library/Caches/Homebrew"
   - "/usr/local/Homebrew"
-env:
-  global:
-    secure: mqxzuSC9CljmvXPUJc9vYnZm6QQP0wZrGduk/nujIiTVMI1trbwHMW+3QSBjBFw0/yGg2E7He1B9Xwpuw+Qpr2twRUUg3EUYNRcDS43PK2/d3o0LisYvOo5P2cIkQxj+2iY0pAG+ILK0Aykci/chjPLbx+YhTVnyApJdzIteyWbwCu7wby0vnho9cWzR0oCKT01imhRJsFBlEF5rC5Up/0ObDXnYJN+vjh+uyC6q80k/tkPFsyXEfQCpyDuxDLibkw9pFB83gNnurOEEJhMFfCqkbW5mgDwd5ZJqo9ezt/xnm7sFlUzc1HtTjM5BYbrOqj5guSYR9mCD73yWD7xKDl0Er0g9EQC0GhiYucwOlfLRXLT0n3605RjZUwlR8jJ0vqCw1KmGi+B11B21bJ6EbdCj2QR4v0AJ3kalWI/oGFQUIB1FyqpNYhUXahUmBwiG1rmBWY3aEvsAuMnQvURFSFNOWSftQyKPzj9VOVhK7+ynHLtHjKWVoN9h2/BFWUS9/5vIs6n1RMC6txNV5zKnwFzxb24alRePNGPnxlL9m7EV0G8S7aLL0K3zHaXsSsFKAETNNDzvUS1kklKp4j7tS0TsIAMkbaBcW6dnHR2En04FE8fOpkt2EOx+/ynTnJU9aC19tDS5fnJJiabE7uv5gS+Osj7p8fGp1H1p6u6PCrA=
