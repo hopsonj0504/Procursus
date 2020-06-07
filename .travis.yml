@@ -24,6 +24,10 @@ before_install:
 - git config --global user.email $email
 - git clone https://github.com/ProcursusTeam/repo.git
 - find build/ProcursusTeam/Procursus/build_dist -type f -name "*.deb"
+- cd repo
+- git checkout --orphan builds
+- git rm -rf .
+- cd $HOME
 - if [ -d "build/ProcursusTeam/Procursus/build_dist/appletvos-arm64/1300" ]; then
   find build/ProcursusTeam/Procursus/build_dist/appletvos-arm64/1300 -type f -name
   "*.deb" -exec cp {} repo/pool/main/appletvos-arm64/1300/ \; ; fi
@@ -43,7 +47,7 @@ before_install:
 - git add -A
 - git commit -m "Travis-$(date +'%Y%m%d%H%M%S')"
 - git remote set-url origin https://${GH_TOKEN}@github.com/ProcursusTeam/repo.git
-- git push origin master
+- git push origin builds
 script: echo -n ""
 cache:
   directories:
