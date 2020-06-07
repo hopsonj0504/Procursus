@@ -26,6 +26,7 @@ before_install:
 - cd repo
 - git checkout --orphan builds
 - git rm -rf .
+- mkdir -p pool/main/appletvos-arm64/1300/ pool/main/iphoneos-arm64/1600/ pool/main/iphoneos-arm64/1500/ pool/main/watchos-arm/1400/ pool/main/watchos-arm64/1400/
 - cd $HOME
 - if [ -d "build/ProcursusTeam/Procursus/build_dist/appletvos-arm64/1300" ]; then
   find build/ProcursusTeam/Procursus/build_dist/appletvos-arm64/1300 -type f -name
