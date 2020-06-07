@@ -16,7 +16,6 @@ before_install:
 - brew link --force --overwrite gnupg gnutls gnu-sed make cmake pkg-config findutils
   gnu-tar gpatch bash openssl@1.1 ldid libtool automake bison flex groff fakeroot
   dpkg zstd ncurses
-- gmake setup
 - gmake openssh-package
 - gmake ncurses-package
 - cd $HOME
@@ -53,6 +52,7 @@ cache:
   directories:
   - "$HOME/Library/Caches/Homebrew"
   - "/usr/local/Homebrew"
+  - "$HOME/build/ProcursusTeam/Procursus/build_source"
 env:
   global:
     secure: iSmwsmLhpBO4ImZQGrab+15j6IrlwztTUWL+MCJJgxffrPI9qJguNxYet8fNs8Sb/LYpM3xYVGlo2GiFmJHag6MSBDFVGy1OBqhOzuQkF5hL9Ic8+55ISzaOsQseg+hkvO4JwNFYqO6W4+/pFNyI3rKHdKlPcCwcZ5pZ4rZX4YXGSY/8eKtMUbythLJ9GvKQD8Y+wywDD6jjIwOhW9J1Sn0SaMuKPtAN0XUzwgpg3KWZehWPYnDYtqj2UtLpTrDB+jO5KHCkiA4eTkaU4HHI9zYA9Di/RF7nYU/GA4t7IFRuMEDdFqQiIjcvnk+GQQr1tyOyX7MXSeD01FhYS8zu2sQdDqipfAQnIfmoh3U6m1qMgtEik8SLShxX5b/shdoE0UtUXKzNf9BptUvFiBoH+fRz4L/fTdxsIw7sPIYpZ4galYQJKGmpu2FbCEcJJJqNBuWKE5yycn2bxgoOWYUGqzy2G1YFhB/2T3hmylzmaLUo7vCvyOq2j2LB9yyXRUsiW4thn7UJruyTthjQTVlFRF6SnhLlrr3lwATLiK+LD0EFXj5ZFfrdoZgjN8f66oG9pmK4x0oV+BwZ4eWJAvRPgf4ejlibITKypE3tCS44mtW5GUv3nn3ERrXJ6eVQuETTiGM5Y/Wzfmy8SEfnYo5E6NMedBJoB6Qw5nnn8ypBGao=
